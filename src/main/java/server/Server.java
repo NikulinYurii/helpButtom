@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import model.Message;
 import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import repository.Dao;
 import utils.Utils;
 
@@ -19,6 +21,7 @@ import java.util.Scanner;
 /**
  * Created by yurii on 22.04.17.
  */
+@SpringBootApplication
 public class Server {
 
     public static void main(String[] args) {
@@ -41,6 +44,8 @@ public class Server {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        SpringApplication.run(Server.class, args);
     }
 
     private static Message readStream(InputStream inputStream) {

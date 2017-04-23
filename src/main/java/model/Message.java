@@ -2,6 +2,7 @@ package model;
 
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.Entity;
 import java.time.LocalDateTime;
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
 /**
  * Created by yurii on 22.04.17.
  */
+@Component
 @Entity
 public class Message {
     private String phone;

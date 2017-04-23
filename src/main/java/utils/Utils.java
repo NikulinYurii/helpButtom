@@ -3,6 +3,7 @@ package utils;
 import model.Message;
 import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import repository.Dao;
 
 import java.io.IOException;
@@ -19,6 +20,7 @@ import java.util.List;
 /**
  * Created by yurii on 23.04.17.
  */
+@Component
 public class Utils {
 
     @Autowired
