@@ -1,0 +1,11 @@
+<<<<<<< HEAD
+.idea/
+out/
+*.iml
+=======
+.idea/
+out/
+*.iml
+lib/
+*.log
+>>>>>>> e0b7744d5912cc001e39c3f65e4af8b32faa408f
