@@ -39,8 +39,11 @@ public class Utils {
     }
 
     public void saveToDb(Message message){
-
         messageRepository.save(message);
+    }
+
+    public void saveToDb(User user){
+        userRepository.save(user);
     }
 
     private void sendSmsUtil(String phone, String text, String sender) {

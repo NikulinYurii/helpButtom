@@ -4,16 +4,23 @@ package model;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 /**
  * Created by yurii on 22.04.17.
  */
-@Entity
+@Entity(name = "messages")
 public class Message {
+
+    @ManyToOne
+    @JoinColumn(name = "phone")
     private String phone;
+
+    @OneToOne
     private Address address;
+
+    @Enumerated(EnumType.STRING)
     private Event event;
     private LocalDateTime creationTime;
 

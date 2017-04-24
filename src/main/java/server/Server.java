@@ -1,7 +1,9 @@
 package server;
 
 import com.google.gson.Gson;
+import model.Address;
 import model.Message;
+import model.User;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import utils.Utils;
@@ -25,6 +27,14 @@ public class Server {
     public static void main(String[] args) {
 
         Utils utils = new Utils();
+
+
+        User u1 = new User("Yurii","0997021685");
+        Address a1 = new Address("Ukrainian","Kiev","st. Borschagivska","193");
+
+
+        utils.saveToDb(u1);
+
 
         try {
             ServerSocket serverSocket = new ServerSocket(9999);

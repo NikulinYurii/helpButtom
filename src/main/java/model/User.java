@@ -2,8 +2,8 @@ package model;
 
 import org.springframework.stereotype.Component;
 
-import javax.persistence.Entity;
-
+import javax.persistence.*;
+import java.util.List;
 
 
 /**
@@ -12,18 +12,20 @@ import javax.persistence.Entity;
 @Entity(name = "users")
 public class User {
     private String name;
-    //todo one to meni with user
+
+    @Id
     private String phone;
-    private Address address;
-    private Event event;
+
+    @OneToMany(mappedBy = "messages")
+    private List<Message> messageList;
+
 
     public User() {
     }
 
-    public User(String name, String phone, Address address) {
+    public User(String name, String phone) {
         this.name = name;
         this.phone = phone;
-        this.address = address;
     }
 
     public String getName() {
@@ -42,29 +44,11 @@ public class User {
         this.phone = phone;
     }
 
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    public Event getEvent() {
-        return event;
-    }
-
-    public void setEvent(Event event) {
-        this.event = event;
-    }
-
     @Override
     public String toString() {
         return "User{" +
                 "name='" + name + '\'' +
                 ", phone='" + phone + '\'' +
-                ", address=" + address +
-                ", event=" + event +
                 '}';
     }
 
