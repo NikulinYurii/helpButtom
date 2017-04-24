@@ -4,7 +4,8 @@ import model.Message;
 import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import repository.Dao;
+import repository.MessageRepository;
+import repository.UserRepository;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,24 +25,32 @@ import java.util.List;
 public class Utils {
 
     @Autowired
-    private Dao dao;
+    private UserRepository userRepository;
+
+    @Autowired
+    private MessageRepository messageRepository;
 
     public void notifyUsers(Message message) {
-        List<User> users = dao.findByAddress_City(message.getAddress().getCity());
+        List<User> users = userRepository.findByAddress_City(message.getAddress().getCity());
 
         for (User user : users) {
-            sendSms(user.getPhone(), message.toString(), dao.findOne(message.getPhone()).getName());
+            sendSmsUtil(user.getPhone(), message.toString(), userRepository.findOne(message.getPhone()).getName());
         }
     }
 
-    private void sendSms(String phone, String text, String sender) {
+    public void saveToDb(Message message){
+
+        messageRepository.save(message);
+    }
+
+    private void sendSmsUtil(String phone, String text, String sender) {
         try {
             String name = "login";
             String password = "pass";
 
             String authString = name + ":" + password;
             String authStringEnc = Base64.getEncoder().encodeToString(authString.getBytes());
-
+//todo guava
             URL url = new URL("http", "api.smsfeedback.ru", 80, "/messages/v2/send/?phone=%2B" + phone + "&text=" + URLEncoder.encode(text, "UTF-8") + "&sender=" + sender);
             URLConnection urlConnection = url.openConnection();
             urlConnection.setRequestProperty("Authorization", authStringEnc);
@@ -55,7 +64,7 @@ public class Utils {
                 sb.append(charArray, 0, numCharsRead);
             }
             String result = sb.toString();
-
+//todo add logger
             System.out.println("*** BEGIN ***");
             System.out.println(result);
             System.out.println("*** END ***");

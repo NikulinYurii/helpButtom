@@ -2,11 +2,8 @@ package server;
 
 import com.google.gson.Gson;
 import model.Message;
-import model.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import repository.Dao;
 import utils.Utils;
 
 import java.io.BufferedReader;
@@ -15,12 +12,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.List;
 import java.util.Scanner;
 
 /**
  * Created by yurii on 22.04.17.
  */
+
+//todo spring web socket
 @SpringBootApplication
 public class Server {
 
@@ -36,6 +34,7 @@ public class Server {
 
                 Message message = readStream(socketClient.getInputStream());
 
+                utils.saveToDb(message);
                 utils.notifyUsers(message);
 
             }
@@ -63,6 +62,5 @@ public class Server {
 
         return message = gson.fromJson(mess, Message.class);
     }
-
 
 }

@@ -7,13 +7,14 @@ import javax.persistence.Entity;
 /**
  * Created by yurii on 22.04.17.
  */
-@Component
 @Entity(name = "addresses")
 public class Address {
     private String country;
     private String city;
     private String street;
     private String number;
+    private double Latitud;
+    private double Longitude;
 
     public Address() {
     }
@@ -43,6 +44,22 @@ public class Address {
 
     public String getStreet() {
         return street;
+    }
+
+    public double getLatitud() {
+        return Latitud;
+    }
+
+    public void setLatitud(double latitud) {
+        Latitud = latitud;
+    }
+
+    public double getLongitude() {
+        return Longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        Longitude = longitude;
     }
 
     public void setStreet(String street) {

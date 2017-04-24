@@ -4,13 +4,15 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.Entity;
 
+
+
 /**
  * Created by yurii on 22.04.17.
  */
-@Component
 @Entity(name = "users")
 public class User {
     private String name;
+    //todo one to meni with user
     private String phone;
     private Address address;
     private Event event;

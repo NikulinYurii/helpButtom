@@ -10,13 +10,11 @@ import java.time.LocalDateTime;
 /**
  * Created by yurii on 22.04.17.
  */
-@Component
 @Entity
 public class Message {
     private String phone;
     private Address address;
     private Event event;
-    @DateTimeFormat
     private LocalDateTime creationTime;
 
 
