@@ -30,6 +30,9 @@ public class Utils {
     @Autowired
     private MessageRepository messageRepository;
 
+    public Utils() {
+    }
+
     public void notifyUsers(Message message) {
         List<User> users = userRepository.findByAddress_City(message.getAddress().getCity());
 

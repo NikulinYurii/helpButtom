@@ -5,7 +5,9 @@ import model.Address;
 import model.Message;
 import model.User;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 import utils.Utils;
 
 import java.io.BufferedReader;
@@ -26,7 +28,7 @@ public class Server {
 
     public static void main(String[] args) {
 
-        Utils utils = new Utils();
+        /*Utils utils = new Utils();
 
 
         User u1 = new User("Yurii","0997021685");
@@ -52,12 +54,12 @@ public class Server {
 
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
 
         SpringApplication.run(Server.class, args);
     }
 
-    private static Message readStream(InputStream inputStream) {
+    /*private static Message readStream(InputStream inputStream) {
         Scanner scanner = new Scanner(inputStream);
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         String mess = "";
@@ -72,5 +74,5 @@ public class Server {
 
         return message = gson.fromJson(mess, Message.class);
     }
-
+*/
 }

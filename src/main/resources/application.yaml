@@ -1,0 +1,15 @@
+app:
+  private-key: 12345
+
+logging:
+  level:
+    org:
+      springframework:
+        web: debug
+
+spring:
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: jdbc:h2:./appDb;DB_CLOSE_ON_EXIT=FALSE
