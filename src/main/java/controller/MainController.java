@@ -32,6 +32,10 @@ public class MainController {
         return "Hello World!";
     }
 
+    @RequestMapping(value = "/notify_users")
+    public void notifyUsers(){
+        
+    }
 
 
 }
