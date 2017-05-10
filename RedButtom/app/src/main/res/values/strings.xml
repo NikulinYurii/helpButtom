@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">RedButtom</string>
+    <string name="action_settings">Registration</string>
+    <string name="title_activity_registartion">RegistartionActivity</string>
 </resources>

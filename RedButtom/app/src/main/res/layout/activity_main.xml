@@ -10,8 +10,8 @@
         android:layout_width="341dp"
         android:layout_height="611dp"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="11dp"
-        tools:layout_editor_absoluteY="13dp"
+        tools:layout_editor_absoluteX="10dp"
+        tools:layout_editor_absoluteY="16dp"
         android:weightSum="1">
 
         <Button
@@ -32,5 +32,6 @@
             android:layout_margin="30dp"
             android:text="medicaid_button"
             android:layout_weight="0.06" />
+
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

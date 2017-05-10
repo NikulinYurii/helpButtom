@@ -1,9 +1,10 @@
 package com.example.yurii.redbuttom;
 
-import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.telephony.TelephonyManager;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -15,15 +16,10 @@ import com.google.gson.Gson;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Calendar;
-
-import org.json.JSONObject;
-import org.json.JSONException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -77,12 +73,12 @@ public class MainActivity extends AppCompatActivity {
                 switch (v.getId()) {
                     case R.id.danger_button:
                         //Message messageDanger = new Message(telephonyManager.getLine1Number(), new Address(), Message_Event.DANGER, time.getTime());
-                        Message messageDanger = new Message("380997021685",new Address(),Message_Event.DANGER,time.getTime());
+                        Message messageDanger = new Message("380997021685", new Address(), Message_Event.DANGER, time.getTime());
                         sendMessage(messageDanger);
                         break;
                     case R.id.medicaid_button:
                         //Message messageMedisine = new Message(telephonyManager.getLine1Number(), new Address(), Message_Event.MEDISINE, time.getTime());
-                        Message messageMedisine = new Message("380997021685",new Address(),Message_Event.MEDISINE,time.getTime());
+                        Message messageMedisine = new Message("380997021685", new Address(), Message_Event.MEDISINE, time.getTime());
                         sendMessage(messageMedisine);
                         break;
                 }
@@ -93,5 +89,21 @@ public class MainActivity extends AppCompatActivity {
         help_button.setOnClickListener(onClickListener);
         medicaid_button.setOnClickListener(onClickListener);
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                Intent intent = new Intent(this, RegistartionActivity.class);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

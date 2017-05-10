@@ -9,9 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <uses-permisiion android:name="android.permission.READ_PHONE_STATE" />
 
-        <uses-permisiion android:name="android.permission.READ_PHONE_STATE"/>
-        <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+        <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -20,6 +20,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".RegistartionActivity"
+            android:label="@string/title_activity_registartion"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

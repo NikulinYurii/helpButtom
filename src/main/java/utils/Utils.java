@@ -1,15 +1,15 @@
 package utils;
 
+import com.google.gson.Gson;
 import model.Message;
 import model.User;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import repository.MessageRepository;
 import repository.UserRepository;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -30,6 +30,8 @@ public class Utils {
     @Autowired
     private MessageRepository messageRepository;
 
+    private static final Logger logger = Logger.getLogger(Utils.class);
+
     public Utils() {
     }
 
@@ -38,15 +40,18 @@ public class Utils {
 
         for (User user : users) {
             sendSmsUtil(user.getPhone(), message.toString(), userRepository.findOne(message.getPhone()).getName());
+            logger.info("notify user " + user.getPhone());
         }
     }
 
     public void saveToDb(Message message){
         messageRepository.save(message);
+        logger.info("save message to DB " + message.getPhone());
     }
 
     public void saveToDb(User user){
         userRepository.save(user);
+        logger.info("save user to DB " + user.getPhone());
     }
 
     private void sendSmsUtil(String phone, String text, String sender) {
@@ -70,16 +75,43 @@ public class Utils {
                 sb.append(charArray, 0, numCharsRead);
             }
             String result = sb.toString();
-//todo add logger
-            System.out.println("*** BEGIN ***");
-            System.out.println(result);
-            System.out.println("*** END ***");
+            logger.info("*** BEGIN ***");
+            logger.info(result);
+            logger.info("*** END ***");
 
         } catch (MalformedURLException ex) {
-            System.out.println(ex.toString());
+            logger.error(ex.toString());
         } catch (IOException ex) {
-            System.out.println(ex.toString());
+            logger.error(ex.toString());
         }
     }
+
+    /*public void addUser(User user) {
+
+        try {
+
+            Gson gson = new Gson();
+            URL url;
+            URLConnection urlConn;
+            DataOutputStream dos;
+            DataInputStream dis;
+
+            url = new URL("Localhost:8080/add_user");
+            urlConn = url.openConnection();
+            urlConn.setDoInput(true);
+            urlConn.setDoOutput(true);
+            urlConn.setUseCaches(false);
+            urlConn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+
+            dos = new DataOutputStream(urlConn.getOutputStream());
+            dos.writeBytes(gson.toJson(url));
+            dos.flush();
+            dos.close();
+
+        } catch (MalformedURLException mue) {
+        } catch (IOException ioe) {
+        }
+
+    }*/
 }
 
