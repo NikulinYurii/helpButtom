@@ -1,8 +1,5 @@
-package model;
+package app.model;
 
-
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -13,9 +10,13 @@ import java.time.LocalDateTime;
 @Entity(name = "messages")
 public class Message {
 
-    @ManyToOne
-    @JoinColumn(name = "phone")
-    private String phone;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userPhone")
+    private User userPhone;
 
     @OneToOne
     private Address address;
@@ -24,23 +25,31 @@ public class Message {
     private Event event;
     private LocalDateTime creationTime;
 
-
     public Message() {
     }
 
-    public Message(String phone, Address address, Event event, LocalDateTime creationTime) {
-        this.phone = phone;
+    public Message(long id, User userPhone, Address address, Event event, LocalDateTime creationTime) {
+        this.id = id;
+        this.userPhone = userPhone;
         this.address = address;
         this.event = event;
         this.creationTime = creationTime;
     }
 
-    public String getPhone() {
-        return phone;
+    public long getId() {
+        return id;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public User getUserPhone() {
+        return userPhone;
+    }
+
+    public void setUserPhone(User userPhone) {
+        this.userPhone = userPhone;
     }
 
     public Address getAddress() {
@@ -70,25 +79,11 @@ public class Message {
     @Override
     public String toString() {
         return "Message{" +
-                "phone='" + phone + '\'' +
+                "id=" + id +
+                ", userPhone=" + userPhone +
                 ", address=" + address +
                 ", event=" + event +
                 ", creationTime=" + creationTime +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Message message = (Message) o;
-
-        return phone != null ? phone.equals(message.phone) : message.phone == null;
-    }
-
-    @Override
-    public int hashCode() {
-        return phone != null ? phone.hashCode() : 0;
     }
 }

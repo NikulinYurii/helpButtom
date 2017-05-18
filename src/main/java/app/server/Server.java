@@ -1,41 +1,30 @@
-package server;
+package app.server;
 
-import com.google.gson.Gson;
-import model.Address;
-import model.Message;
-import model.User;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
-import utils.Utils;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.Scanner;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 /**
  * Created by yurii on 22.04.17.
  */
 
-//todo spring web socket
+@EnableWebMvc
+@ComponentScan(value = "app")
 @SpringBootApplication
-public class Server {
+public class Server extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
 
-        /*Utils utils = new Utils();
+        /*Utils app.utils = new Utils();
 
 
         User u1 = new User("Yurii","0997021685");
         Address a1 = new Address("Ukrainian","Kiev","st. Borschagivska","193");
 
 
-        utils.saveToDb(u1);
+        app.utils.saveToDb(u1);
 
 
         try {
@@ -46,8 +35,8 @@ public class Server {
 
                 Message message = readStream(socketClient.getInputStream());
 
-                utils.saveToDb(message);
-                utils.notifyUsers(message);
+                app.utils.saveToDb(message);
+                app.utils.notifyUsers(message);
 
             }
 

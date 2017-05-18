@@ -1,6 +1,4 @@
-package model;
-
-import org.springframework.stereotype.Component;
+package app.model;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,14 +9,13 @@ import java.util.List;
  */
 @Entity(name = "users")
 public class User {
-    private String name;
 
+    private String name;
     @Id
     private String phone;
 
-    @OneToMany(mappedBy = "messages")
+    @OneToMany(mappedBy = "userPhone"/*targetEntity = Message.class*/)
     private List<Message> messageList;
-
 
     public User() {
     }
@@ -44,26 +41,19 @@ public class User {
         this.phone = phone;
     }
 
+    public List<Message> getMessageList() {
+        return messageList;
+    }
+
+    public void setMessageList(List<Message> messageList) {
+        this.messageList = messageList;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "name='" + name + '\'' +
                 ", phone='" + phone + '\'' +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        User user = (User) o;
-
-        return phone != null ? phone.equals(user.phone) : user.phone == null;
-    }
-
-    @Override
-    public int hashCode() {
-        return phone != null ? phone.hashCode() : 0;
     }
 }

@@ -1,13 +1,11 @@
-package utils;
+package app.utils;
 
-import com.google.gson.Gson;
-import model.Message;
-import model.User;
+import app.model.Message;
+import app.model.User;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import repository.MessageRepository;
-import repository.UserRepository;
+import app.repository.MessageRepository;
+import app.repository.UserRepository;
 
 import java.io.*;
 import java.net.MalformedURLException;
@@ -21,7 +19,7 @@ import java.util.List;
 /**
  * Created by yurii on 23.04.17.
  */
-@Component
+//@Component
 public class Utils {
 
     @Autowired
@@ -30,7 +28,7 @@ public class Utils {
     @Autowired
     private MessageRepository messageRepository;
 
-    private static final Logger logger = Logger.getLogger(Utils.class);
+    private static final Logger LOGGER = Logger.getLogger(Utils.class);
 
     public Utils() {
     }
@@ -39,19 +37,19 @@ public class Utils {
         List<User> users = userRepository.findByAddress_City(message.getAddress().getCity());
 
         for (User user : users) {
-            sendSmsUtil(user.getPhone(), message.toString(), userRepository.findOne(message.getPhone()).getName());
-            logger.info("notify user " + user.getPhone());
+            sendSmsUtil(user.getPhone(), message.toString(), userRepository.findOne(message.getUserPhone().getPhone()).getName());
+            LOGGER.info("notify user " + user.getPhone());
         }
     }
 
     public void saveToDb(Message message){
         messageRepository.save(message);
-        logger.info("save message to DB " + message.getPhone());
+        LOGGER.info("save message to DB " + message.getUserPhone().getPhone());
     }
 
     public void saveToDb(User user){
         userRepository.save(user);
-        logger.info("save user to DB " + user.getPhone());
+        LOGGER.info("save user to DB " + user.getPhone());
     }
 
     private void sendSmsUtil(String phone, String text, String sender) {
@@ -75,14 +73,14 @@ public class Utils {
                 sb.append(charArray, 0, numCharsRead);
             }
             String result = sb.toString();
-            logger.info("*** BEGIN ***");
-            logger.info(result);
-            logger.info("*** END ***");
+            LOGGER.info("*** BEGIN ***");
+            LOGGER.info(result);
+            LOGGER.info("*** END ***");
 
         } catch (MalformedURLException ex) {
-            logger.error(ex.toString());
+            LOGGER.error(ex.toString());
         } catch (IOException ex) {
-            logger.error(ex.toString());
+            LOGGER.error(ex.toString());
         }
     }
 

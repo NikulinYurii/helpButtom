@@ -1,14 +1,20 @@
-package model;
+package app.model;
 
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 /**
  * Created by yurii on 22.04.17.
  */
 @Entity(name = "addresses")
 public class Address {
+
+    @Id
+    @GeneratedValue
+    private int id;
     private String country;
     private String city;
     private String street;
@@ -24,6 +30,14 @@ public class Address {
         this.city = city;
         this.street = street;
         this.number = number;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getCountry() {
