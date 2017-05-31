@@ -15,8 +15,8 @@ public class Message {
     private long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userPhone")
-    private User userPhone;
+    @JoinColumn(name = "userId")
+    private User user;
 
     @OneToOne
     private Address address;
@@ -28,9 +28,9 @@ public class Message {
     public Message() {
     }
 
-    public Message(long id, User userPhone, Address address, Event event, LocalDateTime creationTime) {
+    public Message(long id, User user, Address address, Event event, LocalDateTime creationTime) {
         this.id = id;
-        this.userPhone = userPhone;
+        this.user = user;
         this.address = address;
         this.event = event;
         this.creationTime = creationTime;
@@ -44,12 +44,12 @@ public class Message {
         this.id = id;
     }
 
-    public User getUserPhone() {
-        return userPhone;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserPhone(User userPhone) {
-        this.userPhone = userPhone;
+    public void setUser(User userPhone) {
+        this.user = user;
     }
 
     public Address getAddress() {
@@ -80,7 +80,7 @@ public class Message {
     public String toString() {
         return "Message{" +
                 "id=" + id +
-                ", userPhone=" + userPhone +
+                ", userPhone=" + user +
                 ", address=" + address +
                 ", event=" + event +
                 ", creationTime=" + creationTime +

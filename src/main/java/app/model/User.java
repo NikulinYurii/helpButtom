@@ -4,17 +4,19 @@ import javax.persistence.*;
 import java.util.List;
 
 
-/**
- * Created by yurii on 22.04.17.
- */
 @Entity(name = "users")
 public class User {
 
-    private String name;
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+    private String name;
     private String phone;
 
-    @OneToMany(mappedBy = "userPhone"/*targetEntity = Message.class*/)
+    @OneToOne
+    private Address address;
+
+    @OneToMany(targetEntity = Message.class)
     private List<Message> messageList;
 
     public User() {
@@ -23,6 +25,14 @@ public class User {
     public User(String name, String phone) {
         this.name = name;
         this.phone = phone;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {

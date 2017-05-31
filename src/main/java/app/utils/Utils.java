@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * Created by yurii on 23.04.17.
  */
-//@Component
+
 public class Utils {
 
     @Autowired
@@ -33,18 +33,24 @@ public class Utils {
     public Utils() {
     }
 
-    public void notifyUsers(Message message) {
+    public List<User> usersInCity(Message message){
         List<User> users = userRepository.findByAddress_City(message.getAddress().getCity());
+        return users;
+    }
+
+    public void notifyUsers(Message message) {
+
+        List<User> users = usersInCity(message);
 
         for (User user : users) {
-            sendSmsUtil(user.getPhone(), message.toString(), userRepository.findOne(message.getUserPhone().getPhone()).getName());
-            LOGGER.info("notify user " + user.getPhone());
+            sendSmsUtil(user.getPhone(), message.toString(), message.getUser().getPhone());
+            LOGGER.info("notify user (sms -> ) " + user.getPhone());
         }
     }
 
     public void saveToDb(Message message){
         messageRepository.save(message);
-        LOGGER.info("save message to DB " + message.getUserPhone().getPhone());
+        LOGGER.info("save message to DB " + message.getUser().getPhone());
     }
 
     public void saveToDb(User user){
@@ -83,33 +89,5 @@ public class Utils {
             LOGGER.error(ex.toString());
         }
     }
-
-    /*public void addUser(User user) {
-
-        try {
-
-            Gson gson = new Gson();
-            URL url;
-            URLConnection urlConn;
-            DataOutputStream dos;
-            DataInputStream dis;
-
-            url = new URL("Localhost:8080/add_user");
-            urlConn = url.openConnection();
-            urlConn.setDoInput(true);
-            urlConn.setDoOutput(true);
-            urlConn.setUseCaches(false);
-            urlConn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-
-            dos = new DataOutputStream(urlConn.getOutputStream());
-            dos.writeBytes(gson.toJson(url));
-            dos.flush();
-            dos.close();
-
-        } catch (MalformedURLException mue) {
-        } catch (IOException ioe) {
-        }
-
-    }*/
 }
 
